@@ -1,7 +1,6 @@
 
 export default function ScoreTable({ highestScore, finalScores }) {
 
-
     return (
         <>
             <div>high score is {highestScore()}</div>

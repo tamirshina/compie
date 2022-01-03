@@ -1,8 +1,8 @@
+import { useEffect, useState, useRef, createRef } from "react"
+import { createCircles, shuffleArray } from '../../utilities/utils'
+import Circle from './Circle'
 import React from 'react'
 import '../../App.css'
-import { useEffect, useState, useRef, createRef } from "react"
-import Circle from './Circle'
-import { createCircles, shuffleArray } from '../../utilities/utils'
 
 export default function GameProcess({ restart, handleScore, handleFinal }) {
 
@@ -22,7 +22,6 @@ export default function GameProcess({ restart, handleScore, handleFinal }) {
     }, [circlesToLight])
 
     const handleClick = ({ target }) => {
-
         if (checkClick(target.id)) {
             if (isNext()) {
                 handleScore(10)
@@ -65,15 +64,20 @@ export default function GameProcess({ restart, handleScore, handleFinal }) {
         alert('game ended')
         restart()
     }
+
     const luminate = () => {
-        console.log(circlesToLight)
+        //Time between two illuminations 
+        let interval = 1000
         if (circlesToLight) {
-            circlesToLight.forEach(({ id }) => {
-                let circleTolum = elementsRef.current.find(elem => Number(elem.current.id) === id).current
-                circleTolum.style.background = 'blue'
+            circlesToLight.forEach(({ id }, index) => {
                 setTimeout(() => {
-                    circleTolum.style.background = 'red'
-                }, 2000);
+                    let circleTolum = elementsRef.current.find(elem => Number(elem.current.id) === id).current
+                    circleTolum.style.background = 'blue'
+                    setTimeout(() => {
+                        circleTolum.style.background = 'red'
+                    }, 2000);
+                }, index * interval);
+
             })
         }
     }

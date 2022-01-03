@@ -1,6 +1,6 @@
 
 const numberOfCircles = 6
-//export const shuffledArray = []
+
 export function createCircles() {
 
     let createdCircles = []
@@ -40,6 +40,8 @@ export function setArrayToPersist(finalScores, currentScore) {
             } else {
                 newFinalScores.push(currentScore)
             }
+            //I want no more then 5 last scores
+            newFinalScores.splice(5)
         });
         return JSON.stringify(newFinalScores)
     } else {

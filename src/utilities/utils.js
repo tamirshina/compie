@@ -29,3 +29,21 @@ function createArray() {
     }
     return arrayOfIndexes
 }
+
+export function setArrayToPersist(finalScores, currentScore) {
+
+    if (finalScores) {
+        let newFinalScores = finalScores
+        newFinalScores.forEach((score, index) => {
+            if (currentScore > score) {
+                newFinalScores.splice(index, 0, currentScore)
+            } else {
+                newFinalScores.push(currentScore)
+            }
+        });
+        return JSON.stringify(newFinalScores)
+    } else {
+        return JSON.stringify([currentScore])
+    }
+
+}

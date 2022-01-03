@@ -1,19 +1,26 @@
-import ScoreHistory from './playingComponents/ScoreHistory'
-import PlayBord from './playingComponents/GameProcess'
+import ScoreHistory from './board/ScoreHistory'
+import PlayBord from './board/GameProcess'
 import React, { useState } from 'react'
+import useLocalStorage from '../utilities/hooks/useLoacalStorage'
+import { setArrayToPersist } from '../utilities/utils'
 
 export default function GamePage({ playerName, restart }) {
 
-    const [score, setscore] = useState(0)
+    const [currentScore, setCurrentScore] = useState(0)
+    const [finalScores, setFinalScores] = useLocalStorage('finalScores')
 
     const handleScore = (points) => {
-        setscore(prev => prev + points)
+        setCurrentScore(prev => prev + points)
+    }
+    const handleFinal = () => {
+
+        setFinalScores(setArrayToPersist(finalScores, currentScore))
     }
 
     return (
         <>
-            <ScoreHistory playerName={playerName} score={score} />
-            <PlayBord restart={restart} handleScore={handleScore} />
+            <ScoreHistory playerName={playerName} currentScore={currentScore} finalScores={finalScores} />
+            <PlayBord restart={restart} handleScore={handleScore} handleFinal={handleFinal} />
         </>
     )
 }

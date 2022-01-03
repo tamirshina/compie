@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 function getInitialValue(key) {
     const item = window.localStorage.getItem(key)
 
-    if (item !== null) {
+    if (item === "undefined" || !item) {
+        return null
+    } else {
         return JSON.parse(item)
     }
-
 }
 
-export default function useLocalStorage(key, value) {
+export default function useLocalStorage(key) {
 
-    const [score, setScore] = useState(() => getInitialValue())
+    const [storedValue, setStoredValue] = useState(() => getInitialValue(key))
 
-    useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value))
+    const setValue = (value) => {
+        window.localStorage.setItem(key, value);
+        setStoredValue(value);
+    }
 
-    }, [value])
-
-    return [score, setScore]
+    return [storedValue, setValue]
 }

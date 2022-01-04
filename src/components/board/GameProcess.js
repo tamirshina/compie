@@ -15,10 +15,6 @@ export default function GameProcess({ restart, handleScore, handleFinal }) {
 
     useEffect(() => {
         luminate()
-    }, [])
-
-    useEffect(() => {
-        luminate()
     }, [circlesToLight])
 
     const handleClick = ({ target }) => {
